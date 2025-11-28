@@ -1,0 +1,400 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* Lighter pink background for a softer look */
+    background: #ffe6f2;
+    min-height: 100vh;
+    padding: 20px;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Decorative stars background */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background-image: 
+        radial-gradient(2px 2px at 20% 30%, #fff, rgba(255,255,255,0)),
+        radial-gradient(2px 2px at 60% 70%, #fff, rgba(255,255,255,0)),
+        radial-gradient(1px 1px at 50% 50%, #fff, rgba(255,255,255,0)),
+        radial-gradient(1px 1px at 80% 10%, #fff, rgba(255,255,255,0)),
+        radial-gradient(2px 2px at 90% 60%, #fff, rgba(255,255,255,0)),
+        radial-gradient(1px 1px at 30% 80%, #fff, rgba(255,255,255,0)),
+        radial-gradient(1px 1px at 10% 20%, #fff, rgba(255,255,255,0)),
+        radial-gradient(2px 2px at 70% 90%, #fff, rgba(255,255,255,0)),
+        radial-gradient(1px 1px at 40% 40%, #fff, rgba(255,255,255,0)),
+        radial-gradient(1px 1px at 85% 40%, #fff, rgba(255,255,255,0));
+    background-repeat: repeat;
+    background-size: 200% 200%;
+    animation: twinkle 3s infinite;
+    z-index: 1;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    background: #ffe6f2; /* match page light pink */
+    border-radius: 15px;
+    border: 4px solid #ffffff; /* white outline */
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 95vh;
+    position: relative;
+    z-index: 2;
+}
+
+/* Inner white panel that contains main content (map + sidebar) */
+.panel {
+    background: rgba(255,255,255,0.98);
+    margin: 18px;
+    border-radius: 10px;
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+header {
+    background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);
+    color: white;
+    padding: 35px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(255, 20, 147, 0.3);
+}
+
+header h1 {
+    font-size: 2.8em;
+    margin-bottom: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.subtitle {
+    font-size: 1.2em;
+    opacity: 0.95;
+    font-weight: 300;
+}
+
+main {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+#sidebar {
+    width: 320px;
+    background: linear-gradient(180deg, #fff5fa 0%, #ffebf0 100%);
+    padding: 20px;
+    /* Allow the sidebar to expand so the year-picker can display all buttons */
+    overflow-y: visible;
+    border-right: 2px solid #ffb3d9;
+    box-shadow: inset -2px 0 8px rgba(255, 105, 180, 0.1);
+}
+
+#sidebar h2 {
+    color: #ff1493;
+    font-size: 1.5em;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+
+.year-picker {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 12px 0 14px 0;
+    padding-bottom: 6px;
+}
+
+/* Hide the large detailed timeline sections (we only use the compact year-picker) */
+#timeline { display: none !important; }
+
+/* Ensure the year-picker itself never scrolls and all buttons are visible */
+.year-picker {
+    max-height: none;
+    overflow: visible;
+}
+
+.year-button {
+    background: #e3006b; /* match page background */
+    border: 2px solid #ffffff;
+    color: #ffffff;
+    padding: 6px 8px;
+    border-radius: 6px;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 0.85em;
+    box-shadow: none;
+}
+
+.year-button.active {
+    background: #ffffff;
+    color: #e3006b;
+    border-color: #ffffff;
+}
+
+.year-button:hover { opacity: 0.95; transform: translateY(-1px); }
+
+.sidebar-subtitle {
+    color: #ff69b4;
+    font-size: 0.9em;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.year-group {
+    margin-bottom: 20px;
+    background: white;
+    padding: 12px;
+    border-radius: 8px;
+    border-left: 4px solid #ff69b4;
+    box-shadow: 0 2px 6px rgba(255, 105, 180, 0.1);
+}
+
+.year-label {
+    font-weight: bold;
+    color: #ff1493;
+    font-size: 1.05em;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.year-details { display: none; margin-top: 8px; }
+.year-group.expanded .year-details { display: block; }
+
+.year-label::after {
+    content: '\25B6';
+    font-size: 0.9em;
+    color: #ff69b4;
+    transition: transform 0.2s ease;
+}
+.year-group.expanded .year-label::after { transform: rotate(90deg); }
+
+.city-item {
+    padding: 8px 10px;
+    margin: 5px 0;
+    background: #ffe4f0;
+    border-radius: 6px;
+    cursor: pointer;
+    color: #333;
+    font-size: 0.9em;
+    transition: all 0.3s ease;
+    border-left: 3px solid transparent;
+}
+
+.city-item:hover {
+    background: #ffb3d9;
+    border-left-color: #ff1493;
+    transform: translateX(5px);
+}
+
+.city-item.active {
+    background: #ff69b4;
+    color: white;
+    font-weight: bold;
+    border-left-color: #ff1493;
+}
+
+#map-container {
+    flex: 1;
+    position: relative;
+}
+
+#map {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+}
+
+/* Leaflet map styling */
+.leaflet-container {
+    background: #e6f3ff;
+}
+
+/* Custom legend/key */
+.legend-key {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(255, 20, 147, 0.2);
+    border: 2px solid #ff69b4;
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    z-index: 1000;
+    font-size: 0.9em;
+}
+
+.legend-key h4 {
+    color: #ff1493;
+    margin-bottom: 10px;
+    font-weight: 700;
+    font-size: 1.1em;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin: 8px 0;
+    color: #333;
+}
+
+.legend-dot {
+    width: 12px;
+    height: 12px;
+    background: #ff1493;
+    border-radius: 50%;
+    margin-right: 10px;
+    box-shadow: 0 0 6px rgba(255, 20, 147, 0.45);
+}
+
+/* Popup styling */
+.popup-content {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 8px 0;
+}
+
+.popup-content strong {
+    color: #ff1493;
+    display: block;
+    margin-bottom: 8px;
+    font-size: 1.2em;
+    font-weight: 700;
+}
+
+.popup-content em {
+    color: #ff69b4;
+    display: block;
+    margin-bottom: 10px;
+    font-style: italic;
+    font-weight: 600;
+}
+
+.popup-content small {
+    color: #555;
+    display: block;
+    font-size: 0.9em;
+    line-height: 1.5;
+    font-weight: 600;
+}
+
+/* Tooltip styling */
+.stadium-tooltip {
+    background: rgba(255, 20, 147, 0.95) !important;
+    border: 2px solid #ff69b4 !important;
+    border-radius: 6px;
+    box-shadow: 0 3px 8px rgba(255, 20, 147, 0.3);
+    color: white !important;
+    font-weight: 600;
+}
+
+.stadium-tooltip::before {
+    border-top-color: rgba(255, 20, 147, 0.95) !important;
+}
+
+/* Stadium label styling */
+.stadium-label {
+    background: rgba(255, 255, 255, 0.95) !important;
+    border: 2px solid #ff69b4 !important;
+    border-radius: 4px !important;
+    color: #ff1493 !important;
+    font-weight: 700 !important;
+    padding: 4px 8px !important;
+    font-size: 0.85em !important;
+    box-shadow: 0 2px 4px rgba(255, 20, 147, 0.2) !important;
+    white-space: nowrap !important;
+}
+
+.stadium-label strong {
+    color: #ff1493 !important;
+}
+
+/* Footer */
+footer {
+    background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);
+    color: white;
+    text-align: right;
+    padding: 10px 20px;
+    box-shadow: 0 -2px 8px rgba(255, 20, 147, 0.2);
+}
+
+.signature {
+    font-size: 0.8em;
+    font-family: 'Brush Script MT', 'Lucida Handwriting', cursive;
+    font-style: italic;
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
+/* Scrollbar styling */
+#sidebar::-webkit-scrollbar {
+    width: 8px;
+}
+
+#sidebar::-webkit-scrollbar-track {
+    background: #fff5fa;
+}
+
+#sidebar::-webkit-scrollbar-thumb {
+    background: #ff69b4;
+    border-radius: 4px;
+}
+
+#sidebar::-webkit-scrollbar-thumb:hover {
+    background: #ff1493;
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+    #sidebar {
+        width: 250px;
+    }
+    
+    header h1 {
+        font-size: 2em;
+    }
+}
+
+@media (max-width: 768px) {
+    main {
+        flex-direction: column;
+    }
+    
+    #sidebar {
+        width: 100%;
+        height: auto; /* allow sidebar to grow so all years remain visible */
+        border-right: none;
+        border-bottom: 2px solid #ffb3d9;
+    }
+    
+    .legend-key {
+        bottom: 10px;
+        right: 10px;
+        padding: 12px;
+        font-size: 0.8em;
+    }
+    
+    header h1 {
+        font-size: 1.8em;
+    }
+}

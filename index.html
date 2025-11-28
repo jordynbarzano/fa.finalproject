@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Bowl Stadiums from 1967-2016</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Super Bowl Stadiums from 1967-2016</h1>
+            <p class="subtitle">Interactive map of all Super Bowl Host stadiums from 1967-2016.</p>
+        </header>
+        
+        <div class="panel">
+            <main>
+                <aside id="sidebar">
+                    <h2>Super Bowl History</h2>
+                    <div id="year-picker" class="year-picker" aria-label="Year picker"></div>
+                    <div id="timeline"></div>
+                </aside>
+                
+                <div id="map-container">
+                    <div id="map"></div>
+                </div>
+            </main>
+        </div>
+        
+        <footer>
+            <p><span class="signature">Made by Jordyn Barzano ♡</span></p>
+        </footer>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="map.js"></script>
+</body>
+</html>
