@@ -52,10 +52,10 @@ body::before {
     border-radius: 15px;
     border: 4px solid #ffffff; /* white outline */
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
-    overflow: hidden;
+    overflow: visible;
     display: flex;
     flex-direction: column;
-    height: 95vh;
+    min-height: 95vh;
     position: relative;
     z-index: 2;
 }
@@ -67,7 +67,7 @@ body::before {
     border-radius: 10px;
     display: flex;
     flex: 1;
-    overflow: hidden;
+    overflow: visible;
 }
 
 header {
@@ -95,7 +95,7 @@ header h1 {
 main {
     display: flex;
     flex: 1;
-    overflow: hidden;
+    overflow: visible;
 }
 
 #sidebar {
