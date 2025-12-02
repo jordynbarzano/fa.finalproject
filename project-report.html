@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Bowl Stadiums Project Report</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: linear-gradient(135deg, #ffe6f2 0%, #fff0f6 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(255, 20, 147, 0.15);
+            padding: 50px;
+            position: relative;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            border-bottom: 3px solid #ff1493;
+            padding-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            color: #ff1493;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        header .subtitle {
+            font-size: 1.2em;
+            color: #ff69b4;
+            font-style: italic;
+        }
+
+        section {
+            margin-bottom: 45px;
+        }
+
+        section h2 {
+            font-size: 1.8em;
+            color: #ff1493;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ffb3d9;
+        }
+
+        section h3 {
+            font-size: 1.3em;
+            color: #ff69b4;
+            margin-top: 25px;
+            margin-bottom: 12px;
+        }
+
+        p, li {
+            margin-bottom: 12px;
+            font-size: 1em;
+            line-height: 1.7;
+        }
+
+        ul, ol {
+            margin-left: 30px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        code {
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 2px 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            color: #d63384;
+        }
+
+        .code-block {
+            background: #f5f5f5;
+            border-left: 4px solid #ff1493;
+            border-radius: 6px;
+            padding: 16px;
+            margin: 20px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+
+        .code-block code {
+            background: none;
+            border: none;
+            padding: 0;
+            color: #333;
+            display: block;
+        }
+
+        .highlight-box {
+            background: #fff0f6;
+            border-left: 4px solid #ff69b4;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 20px 0;
+        }
+
+        .highlight-box strong {
+            color: #ff1493;
+        }
+
+        .nav-links {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .nav-links a {
+            display: inline-block;
+            margin: 10px 15px;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(255, 20, 147, 0.3);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            border: 1px solid #ffb3d9;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background: #ff69b4;
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background: #fff5fa;
+        }
+
+        .metadata {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            font-size: 0.95em;
+        }
+
+        .metadata div {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 2px solid #ffb3d9;
+            font-size: 0.95em;
+            color: #999;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .stat-box {
+            background: linear-gradient(135deg, #fff5fa 0%, #ffe6f2 100%);
+            border: 2px solid #ffb3d9;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.2em;
+            color: #ff1493;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 0.95em;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            section h2 {
+                font-size: 1.4em;
+            }
+
+            .metadata {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏈 Super Bowl Stadiums Project</h1>
+            <p class="subtitle">An interactive web application documenting NFL host stadiums (1967–2016)</p>
+        </header>
+
+        <div class="nav-links">
+            <a href="index.html">🗺️ Interactive Map</a>
+            <a href="https://github.com/jordynbarzano/fa.finalproject" target="_blank">📊 GitHub Repository</a>
+        </div>
+
+        <!-- OVERVIEW SECTION -->
+        <section id="overview">
+            <h2>1. Overview</h2>
+            
+            <h3>Objective</h3>
+            <p>
+                This project aims to document and visualize the geographic distribution of Super Bowl host stadiums from 1967 to 2016. 
+                By combining web scraping, database management, and interactive web mapping, the application reveals trends in how Super Bowl venues 
+                have been concentrated in specific regions over 50 years of NFL history.
+            </p>
+
+            <h3>Key Insights</h3>
+            <ul>
+                <li><strong>Geographic Concentration:</strong> Super Bowl stadiums cluster in warm-weather states (Florida, California, Arizona, Louisiana)</li>
+                <li><strong>Venue Reuse:</strong> Many stadiums host the Super Bowl multiple times (e.g., Caesars Superdome: 8 times; Rose Bowl: 5 times)</li>
+                <li><strong>Stadium Modernization:</strong> The dataset tracks venue changes over 50 years, from historic stadiums to modern facilities</li>
+                <li><strong>Regional Preferences:</strong> Certain cities are far more likely to host (Miami, New Orleans, Pasadena) than others</li>
+            </ul>
+
+            <div class="stats">
+                <div class="stat-box">
+                    <div class="stat-number">50</div>
+                    <div class="stat-label">Years of Data</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">27</div>
+                    <div class="stat-label">Unique Stadiums</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">50</div>
+                    <div class="stat-label">Data Points</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- WHY ONLY TO 2016 SECTION -->
+        <section id="why-2016">
+            <h2>4. Why Only to 2016?</h2>
+            <p>
+                The interactive app focuses on completed Super Bowls up to <strong>2016</strong>. While the scraped source included
+                future/beyond-2016 rows, those entries were projections or post-2016 seasons not aligned with the historical scope of this project.
+                Keeping the window to 1967–2016 ensures the map reflects finalized, historically verified events.
+            </p>
+            <h3>Scraping and Data Cleaning Challenges</h3>
+            <ul>
+                <li><strong>Unstable HTML:</strong> Wikipedia tables change and contain superscript/annotation markers like <code>[^]</code>, <code>[‡]</code>, which required cleaning.</li>
+                <li><strong>Parsing Years:</strong> Some rows list multiple years which had to be split and normalized into individual records.</li>
+                <li><strong>Normalization:</strong> Stadiums and their hosted years were modeled in separate tables to avoid duplication and support robust queries.</li>
+            </ul>
+            <div class="highlight-box">
+                <strong>Inner Joins in Practice:</strong> Because stadium details and hosted years live in different tables, queries rely on
+                <code>INNER JOIN</code> to combine related data. This demonstrates relational design and query fluency.
+            </div>
+            <h3>Highlighted Query Using INNER JOIN</h3>
+            <div class="code-block">
+                <code>-- Export feed for the web app (historical years only)
+SELECT s.name, s.location, s.latitude, s.longitude, sy.year
+FROM stadiums s
+<mark>INNER JOIN</mark> stadium_years sy ON s.id = sy.stadium_id
+WHERE sy.year BETWEEN 1967 AND 2016
+ORDER BY sy.year;</code>
+            </div>
+        </section>
+
+        <!-- WEB SCRAPING SECTION -->
+        <section id="scraping">
+            <h2>2. Web Scraping</h2>
+
+            <h3>Data Source</h3>
+            <p>
+                The data was scraped from the <strong>Wikipedia page: 
+                <a href="https://en.wikipedia.org/wiki/Super_Bowl" target="_blank">"List of Super Bowl host cities"</a></strong>. 
+                This page provides a comprehensive, curated table of every Super Bowl from 1967 onwards, including stadium names, locations, and years.
+            </p>
+
+            <h3>Why This Source?</h3>
+            <ul>
+                <li>Authoritative and well-maintained historical data</li>
+                <li>Structured HTML table format ideal for parsing</li>
+                <li>Complete coverage of 50+ years of Super Bowl history</li>
+                <li>Includes venue names, cities, and years hosted</li>
+            </ul>
+
+            <h3>Tools & Methods</h3>
+            <p>
+                The scraping process used <strong>Python with BeautifulSoup</strong> to extract data from Wikipedia's HTML table. 
+                The workflow:
+            </p>
+            <ol>
+                <li>Used <code>requests</code> library to fetch the Wikipedia page HTML</li>
+                <li>Parsed the HTML using <code>BeautifulSoup</code> to locate the stadiums table</li>
+                <li>Extracted stadium names, locations, and years hosted</li>
+                <li>Cleaned annotation markers ([^], [‡], [††], [ˇ]) from text</li>
+                <li>Exported to CSV format for database import</li>
+            </ol>
+
+            <h3>Scraping Example Code</h3>
+            <div class="code-block">
+                <code>import requests
+from bs4 import BeautifulSoup
+import csv
+
+# Fetch Wikipedia page
+url = 'https://en.wikipedia.org/wiki/Super_Bowl'
+response = requests.get(url)
+soup = BeautifulSoup(response.content, 'html.parser')
+
+# Find the stadiums table
+table = soup.find('table', {'class': 'wikitable'})
+
+# Extract rows
+stadiums = []
+for row in table.find_all('tr')[1:]:  # Skip header
+    cols = row.find_all('td')
+    if len(cols) >= 3:
+        stadium = cols[0].text.strip()
+        location = cols[1].text.strip()
+        years = cols[2].text.strip()
+        
+        # Clean annotation markers
+        stadium = stadium.replace('[^]', '').replace('[‡]', '')
+        location = location.replace('[^]', '').replace('[‡]', '')
+        
+        stadiums.append({
+            'Stadium': stadium,
+            'Location': location,
+            'Years hosted': years
+        })
+
+# Write to CSV
+with open('host_stadiums.csv', 'w', newline='') as f:
+    writer = csv.DictWriter(f, fieldnames=['Stadium', 'Location', 'Years hosted'])
+    writer.writeheader()
+    writer.writerows(stadiums)</code>
+            </div>
+
+            <div class="highlight-box">
+                <strong>Note:</strong> The CSV file includes all years from the Wikipedia source (1967–2028), 
+                but the interactive map filters to historical years only (1967–2016) to maintain focus on completed Super Bowls.
+            </div>
+        </section>
+
+        <!-- DATABASE SECTION -->
+        <section id="database">
+            <h2>3. Database Design</h2>
+
+            <h3>Schema Overview</h3>
+            <p>
+                The database uses SQLite with a normalized relational schema to separate stadium information from year records, 
+                preventing data duplication and allowing flexible queries.
+            </p>
+
+            <h3>Tables & Columns</h3>
+
+            <table>
+                <tr>
+                    <th>Table: stadiums</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td><code>id</code></td>
+                    <td>INTEGER PRIMARY KEY</td>
+                    <td>Unique stadium identifier</td>
+                </tr>
+                <tr>
+                    <td><code>name</code></td>
+                    <td>TEXT</td>
+                    <td>Stadium name (e.g., "Orange Bowl")</td>
+                </tr>
+                <tr>
+                    <td><code>location</code></td>
+                    <td>TEXT</td>
+                    <td>City, State (e.g., "Miami, Florida")</td>
+                </tr>
+                <tr>
+                    <td><code>latitude</code></td>
+                    <td>REAL</td>
+                    <td>Geographic latitude for mapping</td>
+                </tr>
+                <tr>
+                    <td><code>longitude</code></td>
+                    <td>REAL</td>
+                    <td>Geographic longitude for mapping</td>
+                </tr>
+            </table>
+
+            <table>
+                <tr>
+                    <th>Table: stadium_years</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td><code>id</code></td>
+                    <td>INTEGER PRIMARY KEY</td>
+                    <td>Record identifier</td>
+                </tr>
+                <tr>
+                    <td><code>stadium_id</code></td>
+                    <td>INTEGER FOREIGN KEY</td>
+                    <td>Reference to stadiums table</td>
+                </tr>
+                <tr>
+                    <td><code>year</code></td>
+                    <td>INTEGER</td>
+                    <td>Year the stadium hosted Super Bowl</td>
+                </tr>
+            </table>
+
+            <h3>Why This Design?</h3>
+            <ul>
+                <li><strong>Normalization:</strong> Separates stadium metadata from hosting years, eliminating redundancy</li>
+                <li><strong>Scalability:</strong> Easy to add new stadiums or years without data duplication</li>
+                <li><strong>Flexibility:</strong> Enables queries like "how many times did each stadium host?" without data repetition</li>
+                <li><strong>Geocoding Support:</strong> Latitude/longitude columns enable interactive mapping features</li>
+            </ul>
+
+            <h3>CSV Export for Web App</h3>
+            <p><strong>Filename:</strong> <code>data.json</code> (exported from SQL JOIN query)</p>
+            <p><strong>Columns:</strong> name, location, latitude, longitude, year</p>
+            <p><strong>Record Count:</strong> 50 records (filtered to years 1967–2016)</p>
+
+            <div style="margin: 20px 0;" class="nav-links">
+                <a href="host_stadiums.csv" download>📥 Download host_stadiums.csv</a>
+            </div>
+
+            <h3>Sample SQL Queries</h3>
+
+            <h4>Query 1: All Stadiums with Years (Ordered by Year)</h4>
+            <div class="code-block">
+                <code>SELECT s.name, s.location, s.latitude, s.longitude, sy.year
+FROM stadiums s
+INNER JOIN stadium_years sy ON s.id = sy.stadium_id
+WHERE sy.year >= 1967 AND sy.year <= 2016
+ORDER BY sy.year;</code>
+            </div>
+            <p><strong>Purpose:</strong> Core query used to generate the web app's data feed. Returns all Super Bowl host venues in chronological order with geographic coordinates.</p>
+
+            <h4>Query 2: Count Super Bowls by Stadium</h4>
+            <div class="code-block">
+                <code>SELECT s.name, s.location, COUNT(sy.year) AS times_hosted
+FROM stadiums s
+LEFT JOIN stadium_years sy ON s.id = sy.stadium_id
+WHERE sy.year >= 1967 AND sy.year <= 2016
+GROUP BY s.id
+ORDER BY times_hosted DESC;</code>
+            </div>
+            <p><strong>Purpose:</strong> Identifies which stadiums are most frequently used for hosting. Shows Caesars Superdome leading with 8 occurrences.</p>
+
+            <h4>Query 3: Stadiums by Location (Geographic Summary)</h4>
+            <div class="code-block">
+                <code>SELECT s.location, COUNT(DISTINCT s.id) AS unique_stadiums, COUNT(sy.year) AS total_hosted
+FROM stadiums s
+INNER JOIN stadium_years sy ON s.id = sy.stadium_id
+WHERE sy.year >= 1967 AND sy.year <= 2016
+GROUP BY s.location
+ORDER BY total_hosted DESC;</code>
+            </div>
+            <p><strong>Purpose:</strong> Reveals geographic clustering. Shows Miami, New Orleans, and California cities dominate Super Bowl hosting.</p>
+
+            <h4>Query 4: Stadiums by State</h4>
+            <div class="code-block">
+                <code>SELECT 
+  SUBSTR(s.location, INSTR(s.location, ',') + 2) AS state,
+  COUNT(DISTINCT s.id) AS unique_stadiums,
+  COUNT(sy.year) AS total_hosted
+FROM stadiums s
+INNER JOIN stadium_years sy ON s.id = sy.stadium_id
+WHERE sy.year >= 1967 AND sy.year <= 2016
+GROUP BY state
+ORDER BY total_hosted DESC;</code>
+            </div>
+            <p><strong>Purpose:</strong> Aggregates data by state, revealing that Florida, California, and Louisiana account for majority of Super Bowls.</p>
+        </section>
+
+        <!-- WEB APP SECTION -->
+        <section id="webapp">
+            <h2>5. Web Application</h2>
+
+            <h3>Overview</h3>
+            <p>
+                The web application is a vanilla JavaScript interactive map built with <strong>Leaflet.js</strong> and <strong>OpenStreetMap</strong>. 
+                It provides real-time exploration of Super Bowl stadium locations with filtering, popups, and a sidebar timeline.
+            </p>
+
+            <h3>Key Features</h3>
+            <ul>
+                <li><strong>Interactive Map:</strong> Pan and zoom across continental US to explore stadium locations</li>
+                <li><strong>Year Picker:</strong> Click any year (1967–2016) to highlight the corresponding stadium and show details</li>
+                <li><strong>Location Popups:</strong> Click a marker to see stadium name, city, and all years hosted</li>
+                <li><strong>Hover Tooltips:</strong> Hover over markers to see the city name</li>
+                <li><strong>Legend:</strong> Visual key identifying stadium markers on the map</li>
+                <li><strong>Auto-Scrolling:</strong> Sidebar and year-picker scroll to show selected year smoothly</li>
+                <li><strong>Responsive Design:</strong> Works on desktop and mobile devices</li>
+            </ul>
+
+            <h3>How to Use the App</h3>
+            <ol>
+                <li><strong>View the Map:</strong> Load the page to see all 27 Super Bowl stadiums plotted on a US map</li>
+                <li><strong>Select a Year:</strong> Click a year button (1967–2016) in the top section to highlight that year's stadium</li>
+                <li><strong>Click a Marker:</strong> Click any pink stadium dot to open a popup showing stadium info and all years hosted</li>
+                <li><strong>Hover for Details:</strong> Hover over markers to see the location name in a tooltip</li>
+                <li><strong>Explore Patterns:</strong> Use the map to identify regional clustering and venue preferences</li>
+            </ol>
+
+            <h3>Technology Stack</h3>
+            <ul>
+                <li><strong>Frontend:</strong> HTML5, CSS3, Vanilla JavaScript (no frameworks)</li>
+                <li><strong>Mapping:</strong> Leaflet.js v1.9.4 with OpenStreetMap tiles</li>
+                <li><strong>Data Format:</strong> JSON (exported from SQLite database)</li>
+                <li><strong>Styling:</strong> Custom CSS with responsive grid layout and animations</li>
+            </ul>
+
+            <h3>Data Flow</h3>
+            <div class="code-block">
+                <code>SQLite Database (host_stadiums.db)
+    ↓
+SQL Query (joins stadiums + stadium_years)
+    ↓
+JSON Export (data.json)
+    ↓
+JavaScript (data.js loads JSON)
+    ↓
+Leaflet Map (map.js renders markers)
+    ↓
+Interactive Web Application</code>
+            </div>
+        </section>
+
+        <footer>
+            <p>Project completed by <strong>Jordyn Barzano</strong></p>
+            <p>GitHub: <a href="https://github.com/jordynbarzano/fa.finalproject" target="_blank">github.com/jordynbarzano/fa.finalproject</a></p>
+            <p style="margin-top: 15px; font-size: 0.9em;">Last updated: December 2025</p>
+        </footer>
+    </div>
+</body>
+</html>

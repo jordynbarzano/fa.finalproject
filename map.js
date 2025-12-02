@@ -5,20 +5,22 @@ let currentExpandedYearGroup = null;
 
 function initMap() {
     // Initialize map centered on USA
-    map = L.map('map', {
-        maxBounds: [
-            [25, -130],
-            [50, -65]
-        ],
-        maxBoundsViscosity: 1.0
-    }).setView([37.8, -96.9], 4);
-    
-    // Add OpenStreetMap base layer
+    // NOTE: remove strict maxBounds to avoid blank gaps on zoom/pan
+    map = L.map('map').setView([37.8, -96.9], 4);
+
+    // Add OpenStreetMap base layer with noWrap to avoid tile repetition issues
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© OpenStreetMap contributors',
         maxZoom: 10,
-        minZoom: 3
+        minZoom: 3,
+        noWrap: true
     }).addTo(map);
+
+    // Ensure Leaflet recalculates size after tiles are ready to prevent rendering gaps
+    map.whenReady(() => {
+        setTimeout(() => map.invalidateSize(), 200);
+    });
+    map.on('zoomend', () => map.invalidateSize());
     
     // Group data by stadium
     const stadiumsGrouped = {};
